@@ -25,7 +25,7 @@ class General(commands.Cog):
         help_text = ('**Comandos:**'
                     '\n\n:satellite_orbital:  Ping: Mostra a latência das minhas respostas (e também serve pra jogar ping-pong). :ping_pong:```bash\n.ping```'
                     '\n:smiley_cat:  GitHub: Te levo até o meu código fonte pra você ver tudinho. :flushed:```bash\n.github```'
-                    '\n:four_leaf_clover:  Sorte: Me faz uma pergunta sobre o seu futuro e eu vou te dizer se vai rolar ou não. :thinking:```bash\n.sorte [pergunta]```')
+                    '\n:four_leaf_clover:  Sorte: Me faz uma pergunta sobre o futuro e eu vou te dizer se vai rolar ou não. :thinking:```bash\n.sorte [pergunta]```')
 
         await context.author.send(help_text)
 
