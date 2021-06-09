@@ -22,10 +22,14 @@ class General(commands.Cog):
 
     @commands.command()
     async def ajuda(self, context):
-        help_text = ('**Comandos:**'
-                    '\n\n:satellite_orbital:  Ping: Mostra a latência das minhas respostas (e também serve pra jogar ping-pong). :ping_pong:```bash\n.ping```'
+        help_text = ('**Comandos:**\n'
+                    '\n:satellite_orbital:  Ping: Mostra a latência das minhas respostas (e também serve pra jogar ping-pong). :ping_pong:```bash\n.ping```'
                     '\n:smiley_cat:  GitHub: Te levo até o meu código fonte pra você ver tudinho. :flushed:```bash\n.github```'
-                    '\n:four_leaf_clover:  Sorte: Me faz uma pergunta sobre o futuro e eu vou te dizer se vai rolar ou não. :thinking:```bash\n.sorte [pergunta]```')
+                    '\n:four_leaf_clover:  Sorte: Me faz uma pergunta sobre o futuro e eu vou te dizer se vai rolar ou não. :thinking:```bash\n.sorte [pergunta]```'
+                    '\n:headphones:  YouTube: Me dá um link de um vídeo do YouTube e eu vou reproduzir o áudio dele. :musical_note:```bash\n.youtube [link]```'
+                    '\n:stop_button:  Parar: Só falar que eu paro de tocar áudio na hora. :zipper_mouth:```bash\n.parar```'
+                    '\n:arrow_right:  Entrar: Só me chamar que eu entro correndo no canal de voz que você tiver. :man_running:```bash\n.entrar```'
+                    '\n:arrow_left:  Sair: Você não me quer mais aqui? Tudo bem, achei que fôssemos amigos. :cry:```bash\n.sair```')
 
         await context.author.send(help_text)
 
