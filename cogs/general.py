@@ -26,8 +26,10 @@ class General(commands.Cog):
                     '\n:satellite_orbital:  Ping: Mostra a latência das minhas respostas (e também serve pra jogar ping-pong). :ping_pong:```bash\n.ping```'
                     '\n:smiley_cat:  GitHub: Te levo até o meu código fonte pra você ver tudinho. :flushed:```bash\n.github```'
                     '\n:four_leaf_clover:  Sorte: Me faz uma pergunta sobre o futuro e eu vou te dizer se vai rolar ou não. :thinking:```bash\n.sorte [pergunta]```'
-                    '\n:headphones:  YouTube: Me dá um link de um vídeo do YouTube e eu vou reproduzir o áudio dele. :musical_note:```bash\n.youtube [link]```'
-                    '\n:stop_button:  Parar: Só falar que eu paro de tocar áudio na hora. :zipper_mouth:```bash\n.parar```'
+                    '\n:headphones:  YouTube: Me dá um link de um vídeo do YouTube e eu vou reproduzir o áudio dele. :musical_note:```bash\n.yt [link]```'
+                    '\n:microphone:  Áudio: Me dá o nome de um dos meus áudios e eu vou reproduzir ele. Lista de áudios: <https://www.youtube.com/playlist?list=PLyNt_LH-5qNA6QHen_9-OXNHkyY_J9zvB> :saxophone:```bash\n.audio [nome]```'
+                    '\n:musical_keyboard:  Lo-fi: Só pedir que eu abro a rádio de Lo-fi. :relaxed:```bash\n.lofi```'
+                    '\n:stop_button:  Parar: Só falar que eu paro o áudio que estiver tocando na hora. :zipper_mouth:```bash\n.parar```'
                     '\n:arrow_right:  Entrar: Só me chamar que eu entro correndo no canal de voz que você tiver. :man_running:```bash\n.entrar```'
                     '\n:arrow_left:  Sair: Você não me quer mais aqui? Tudo bem, achei que fôssemos amigos. :cry:```bash\n.sair```')
 

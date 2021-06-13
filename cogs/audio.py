@@ -5,6 +5,7 @@ from discord import FFmpegPCMAudio
 from discord.ext import commands
 from discord.utils import get
 
+lofi_url = 'https://www.youtube.com/watch?v=5qap5aO4i9A'
 
 class Audio(commands.Cog):
     def __init__(self, client):
@@ -44,12 +45,13 @@ class Audio(commands.Cog):
             context.send('Não tô tocando nenhum áudio.')
 
     @commands.command()
-    async def youtube(self, context, url):
+    async def yt(self, context, url):
         await self.entrar(context)
 
-        YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
+        YDL_OPTIONS = {'format': 'bestaudio/best', 'noplaylist': 'True'}
         FFMPEG_OPTIONS = {
-            'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'
+            'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
+            'options': '-vn'
         }
 
         voice = get(self.client.voice_clients, guild=context.guild)
@@ -63,6 +65,14 @@ class Audio(commands.Cog):
         URL = info['formats'][0]['url']
 
         voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
+
+    @commands.command()
+    async def audio(self, context, audio_name):
+        context.send('Comando não implementado ainda.')
+
+    @commands.command()
+    async def lofi(self, context):
+        await self.yt(context, lofi_url)
 
 
 def setup(client):
