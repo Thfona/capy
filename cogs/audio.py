@@ -42,7 +42,7 @@ class Audio(commands.Cog):
         if voice and voice.is_playing():
             voice.stop()
         else:
-            context.send('Não tô tocando nenhum áudio.')
+            await context.send('Não tô tocando nenhum áudio.')
 
     @commands.command()
     async def yt(self, context, url):
@@ -68,7 +68,7 @@ class Audio(commands.Cog):
 
     @commands.command()
     async def audio(self, context, audio_name):
-        context.send('Comando não implementado ainda.')
+        await context.send('Comando não implementado ainda.')
 
     @commands.command()
     async def lofi(self, context):
