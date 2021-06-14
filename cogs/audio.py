@@ -1,3 +1,5 @@
+import os
+import googleapiclient.discovery
 import youtube_dl
 import discord
 from youtube_dl import YoutubeDL
@@ -5,7 +7,13 @@ from discord import FFmpegPCMAudio
 from discord.ext import commands
 from discord.utils import get
 
+youtube_base_url = 'https://www.youtube.com/watch?v='
+playlist_id = 'PLyNt_LH-5qNA6QHen_9-OXNHkyY_J9zvB'
+youtube_discovery = googleapiclient.discovery.build(
+    'youtube', 'v3', developerKey=os.getenv('GOOGLE_API_KEY')
+)
 lofi_url = 'https://www.youtube.com/watch?v=5qap5aO4i9A'
+
 
 class Audio(commands.Cog):
     def __init__(self, client):
@@ -68,7 +76,40 @@ class Audio(commands.Cog):
 
     @commands.command()
     async def audio(self, context, audio_name):
-        await context.send('Comando não implementado ainda.')
+        playlist_request = youtube_discovery.playlistItems().list(
+            part='snippet',
+            playlistId=playlist_id,
+            maxResults=50
+        )
+
+        playlist_response = playlist_request.execute()
+
+        playlist_items = []
+
+        while playlist_request is not None:
+            playlist_response = playlist_request.execute()
+            playlist_items += playlist_response['items']
+            playlist_request = youtube_discovery.playlistItems(
+            ).list_next(playlist_request, playlist_response)
+
+        video_url = ''
+
+        for video in playlist_items:
+            snippet = video['snippet']
+
+            title = snippet['title']
+
+            if (title == audio_name):
+                resource_id = snippet['resourceId']
+
+                video_id = resource_id['videoId']
+
+                video_url = f'{youtube_base_url}{video_id}'
+
+        if (video_url):
+            await self.yt(context, video_url)
+        else:
+            await context.send('Não encontrei esse áudio.')
 
     @commands.command()
     async def lofi(self, context):
