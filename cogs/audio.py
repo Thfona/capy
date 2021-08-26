@@ -6,6 +6,8 @@ from youtube_dl import YoutubeDL
 from discord import FFmpegPCMAudio
 from discord.ext import commands
 from discord.utils import get
+from youtubesearchpython import VideosSearch, ResultMode
+from classes.validator import Validator
 
 youtube_base_url = 'https://www.youtube.com/watch?v='
 playlist_id = 'PLyNt_LH-5qNA6QHen_9-OXNHkyY_J9zvB'
@@ -47,13 +49,17 @@ class Audio(commands.Cog):
     async def parar(self, context):
         voice = get(self.client.voice_clients, guild=context.guild)
 
-        if voice and voice.is_playing():
+        if (voice and voice.is_playing()):
             voice.stop()
         else:
             await context.send('Não tô tocando nenhum áudio.')
 
-    @commands.command()
+    @commands.command(aliases=['youtube', 'ytb'])
     async def yt(self, context, url):
+        if (not Validator.validate_youtube_url(Validator, url)):
+            await context.send('Não encontrei esse link do YouTube.')
+            return
+
         await self.entrar(context)
 
         YDL_OPTIONS = {'format': 'bestaudio/best', 'noplaylist': 'True'}
@@ -64,7 +70,7 @@ class Audio(commands.Cog):
 
         voice = get(self.client.voice_clients, guild=context.guild)
 
-        if voice and voice.is_playing():
+        if (voice and voice.is_playing()):
             await self.parar(context)
 
         with YoutubeDL(YDL_OPTIONS) as ydl:
@@ -75,7 +81,30 @@ class Audio(commands.Cog):
         voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
 
     @commands.command()
-    async def audio(self, context, audio_name):
+    async def video(self, context, *args):
+        video_search_string = ' '.join(args)
+
+        video_search = VideosSearch(video_search_string, limit = 1)
+
+        video_search_result = video_search.result()
+
+        if (video_search_result and video_search_result.get('result') and video_search_result.get('result')[0]):
+            video_data = video_search_result.get('result')[0]
+
+            playing_message = 'Tocando ' + video_data.get('title')
+
+            await context.send(playing_message)
+
+            video_link = video_data.get('link')
+
+            await self.yt(context, video_link)
+        else:
+            await context.send('Não encontrei nenhum resultado para essa pesquisa.')
+
+    @commands.command()
+    async def audio(self, context, *args):
+        audio_name = ' '.join(args)
+
         playlist_request = youtube_discovery.playlistItems().list(
             part='snippet',
             playlistId=playlist_id,
